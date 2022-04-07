@@ -620,3 +620,29 @@ export function closeDialog() {
   this.$('dialog_kyz78exr').hide();
 }
 ```
+## 常用api  
+
+###this.utils.isSubmissionPage() //判断是否为提交页面
+
+返回值为boolean
+ture  => 提交页面
+false => 非提交页面
+
+###this.utils.isViewPage()       //判断是否为预览（详情）页面
+
+返回值为boolean
+ture  => 预览页面
+false => 非预览页面
+示例
+// 当页面渲染完毕后马上调用下面的函数，这个函数是在当前页面 - 设置 - 生命周期 - 页面加载完成时中被关联的。
+export function didMount() {
+//textField_kvlzt9m2为合同编号字段
+  if (this.utils.isSubmissionPage()) {
+    this.$('textField_kvlzt9m2').setBehavior('HIDDEN');//提交页面隐藏合同编号
+  } else if (this.utils.isViewPage()){
+    this.$('textField_kvlzt9m2').setBehavior('NORMAL');//预览页面可编辑合同编号
+  }else{
+    this.$('textField_kvlzt9m2').setBehavior('HIDDEN');//编辑页面隐藏合同编号
+  }
+  //最终实现效果只能在预览页面填写合同编号，其余两个页面均隐藏
+}
